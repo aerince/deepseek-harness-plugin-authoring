@@ -1,0 +1,23 @@
+{
+  "skill_name": "deepseek-harness-plugin-authoring",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我从零做一个 DeepSeek Harness 插件，加载时打印一行日志，放 GitHub 后要能直接用 dsh plugin --profile web add github:me/logger-plugin 安装。不要上 TypeScript 构建链。",
+      "expected_output": "Creates the minimum zero-build JavaScript package with a consistent package name, entry, cordis.patch.yml, dsh.bundle.patch, README install command, and no prepare/build system.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "这个 DSH 包用 plugin add 已经装进 profile 了，但 dump-config 完全看不到它。package.json 只有 name、version、main。请定位并修好。",
+      "expected_output": "Diagnoses missing activation metadata, adds dsh.bundle.patch and a valid cordis.patch.yml row, then verifies with a disposable profile and dump-config.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "给现有 DeepSeek Harness 插件加一个 Web 设置页，并发布 GitHub release，再准备提交到 tjsdyy/dshplugin 的材料。",
+      "expected_output": "Uses the advanced client route, verifies current official dsh.client and client-loader contracts, builds both host and browser halves, publishes a SemVer release only after checks, and prepares bilingual marketplace fields with a tested install command.",
+      "files": []
+    }
+  ]
+}
