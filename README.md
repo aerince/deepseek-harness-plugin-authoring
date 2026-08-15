@@ -1,8 +1,8 @@
 # DeepSeek Harness Plugin Authoring Skill
 
-用于创建、调试、打包、安装和发布 DeepSeek Harness（DSH）插件的 Agent Skill。
+面向 OpenCode、Claude Code 等 Agent Skill 运行时的 DeepSeek Harness（DSH）插件开发技能：从最小 Cordis host plugin，到 GitHub source 安装、验证、Release 和 marketplace 提交。
 
-它本身不是 DSH 插件，而是一套面向 OpenCode、Claude Code 等 Agent Skill 运行时的开发流程与模板。
+**本仓库不是 DSH 插件。** 它没有 `package.json`、`dsh.bundle` 或 `cordis.patch.yml`，因此不能、也不应该用 `dsh plugin --profile ... add` 安装。
 
 ## 能做什么
 
@@ -12,7 +12,6 @@
 - 诊断“安装成功但未激活”等常见问题
 - 按当前官方约束构建 `dsh.client` Web 插件
 - 验证本地、GitHub source 和 profile 安装路径
-- 创建 GitHub 仓库、SemVer Release 和 `dsh-plugin` topic
 - 准备 [tjsdyy/dshplugin](https://github.com/tjsdyy/dshplugin#development) 市场提交材料
 
 ## 安装
@@ -38,21 +37,31 @@ git clone https://github.com/aerince/deepseek-harness-plugin-authoring.git \
   ~/.claude/skills/deepseek-harness-plugin-authoring
 ```
 
-安装后重启对应客户端，使新 Skill 被重新扫描。
+Windows PowerShell 可将目标目录改为 `$env:USERPROFILE\.config\opencode\skills\deepseek-harness-plugin-authoring` 或 `$env:USERPROFILE\.claude\skills\deepseek-harness-plugin-authoring`。安装后重启对应客户端，使 Skill 重新扫描。
 
-## 使用示例
+## 验证安装
+
+确认目标目录中存在 `SKILL.md`、`references/official-contract.md` 和 `references/github-publishing.md`，然后重启客户端并发出类似请求：
 
 ```text
 帮我写一个 DeepSeek Harness 工具插件，并给出可测试的 profile 安装命令。
 ```
 
-```text
-检查这个 DSH 插件为什么 plugin add 成功后没有出现在 dump-config。
-```
+本 Skill 的安装验证是“客户端能发现并调用 Skill”，不是 `dsh --profile ... --dump-config`。后者只用于验证由本 Skill 创建的 DSH 插件。
 
-```text
-把这个 Cordis 插件整理成可从 GitHub 安装的 dsh.bundle，并发布 v0.1.0。
-```
+## DSH 官方安装对照
+
+| 项目 | 正确方式 |
+|---|---|
+| 本仓库类型 | Agent Skill，不是 DSH bundle |
+| 本仓库安装 | `git clone` 到客户端的 Skill 目录 |
+| `dsh plugin --profile ... add` | 不适用；不要把本仓库当 DSH 插件安装 |
+| 本 Skill 生成的插件 | 应包含普通 package entry、`dsh.bundle.patch` 和 `cordis.patch.yml` |
+| 生成插件的验证 | `dsh --profile <profile> --dump-config` |
+
+官方当前核对基线：`deepseek-ai/deepseek-harness` commit `47f943859bef60e4160492346772ded9b24f765a`，source version `0.1.0-rc.5`。DSH 仍处于 developer preview，Skill 在关键接口上要求先检查官方当前版本。
+
+官方参考：<https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/user/develop/basic/publish.zh.md>、<https://github.com/deepseek-ai/deepseek-harness/blob/master/apps/cli/src/plugin.ts>。
 
 ## 设计原则
 
@@ -62,16 +71,6 @@ git clone https://github.com/aerince/deepseek-harness-plugin-authoring.git \
 - 不使用已移除的 `.dsh-plugin` 格式
 - 不采用未经官方确认的 `dsh.skills`、`dsh.mcpServers` 字段
 - 发布前留下真实可执行的安装与验证命令
-
-## 版本基线
-
-当前参考已核对到：
-
-- DeepSeek Harness commit `47f943859bef60e4160492346772ded9b24f765a`
-- source version `0.1.0-rc.5`
-- 核对日期 `2026-08-15`
-
-DSH 仍处于 developer preview。Skill 会要求在关键接口上先检查官方当前版本。
 
 ## 仓库结构
 
