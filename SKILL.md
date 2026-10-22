@@ -5,7 +5,7 @@ license: MIT
 compatibility: Requires network access for current-version checks and GitHub access for publishing. Generated plugins should target the currently installed DeepSeek Harness version.
 metadata:
   author: aerince
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # DeepSeek Harness Plugin Authoring
@@ -60,6 +60,8 @@ An installable bundle needs:
 - a normal package entry;
 - `cordis.patch.yml`;
 - `package.json` field `dsh.bundle.patch` pointing to that patch;
+- a tested `engines.dsh` range for the target DSH versions;
+- shared `@deepseek-ai/*` package imports whose instance must be shared with DSH declared in both `peerDependencies` and `devDependencies` with published semver ranges;
 - a patch row whose `name` resolves to the installed package.
 
 Use zero-build JavaScript by default for GitHub source installation. For TypeScript, either ship built output or provide a self-contained `prepare`; explain that pnpm 10+ requires the installer to authorize that package under profile `allowBuilds`.

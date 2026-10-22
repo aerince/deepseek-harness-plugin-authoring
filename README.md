@@ -56,10 +56,10 @@ Windows PowerShell 可将目标目录改为 `$env:USERPROFILE\.config\opencode\s
 | 本仓库类型 | Agent Skill，不是 DSH bundle |
 | 本仓库安装 | `git clone` 到客户端的 Skill 目录 |
 | `dsh plugin --profile ... add` | 不适用；不要把本仓库当 DSH 插件安装 |
-| 本 Skill 生成的插件 | 应包含普通 package entry、`dsh.bundle.patch` 和 `cordis.patch.yml` |
+| 本 Skill 生成的插件 | 应包含普通 package entry、`dsh.bundle.patch`、已验证的 `engines.dsh` 和 `cordis.patch.yml` |
 | 生成插件的验证 | `dsh --profile <profile> --dump-config` |
 
-官方当前核对基线：`deepseek-ai/deepseek-harness` commit `47f943859bef60e4160492346772ded9b24f765a`，source version `0.1.0-rc.5`。DSH 仍处于 developer preview，Skill 在关键接口上要求先检查官方当前版本。
+官方当前核对基线：`deepseek-ai/deepseek-harness` commit `687f282e8625c6b8d11ff58211a90524be2e4317`，release tag `dsh-v0.2.1-rc.2`（2026-10-22 核对）。DSH 仍处于 developer preview，Skill 在关键接口上要求先检查官方当前版本。
 
 官方参考：<https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/user/develop/basic/publish.zh.md>、<https://github.com/deepseek-ai/deepseek-harness/blob/master/apps/cli/src/plugin.ts>。
 

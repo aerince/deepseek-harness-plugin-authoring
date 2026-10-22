@@ -33,7 +33,8 @@ dsh-example-plugin/
     "LICENSE"
   ],
   "engines": {
-    "node": "^22.19.0 || >=24.0.0"
+    "node": "^22.19.0 || >=24.0.0",
+    "dsh": ">=0.2.1-rc.2 <0.3.0"
   },
   "license": "MIT",
   "repository": {
@@ -72,7 +73,7 @@ export function apply() {
       name: dsh-example-plugin
 ```
 
-Keep the package name, patch `name`, repository URL, and README install command consistent.
+Keep the package name, patch `name`, repository URL, and README install command consistent. Replace the example `engines.dsh` range with the host versions you actually test. If the plugin imports shared DSH packages, list each in both `peerDependencies` and `devDependencies` with published versions.
 
 ## Local TypeScript Overlay
 

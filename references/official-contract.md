@@ -2,12 +2,13 @@
 
 ## Freshness Baseline
 
-Verified on 2026-08-15 against:
+Verified on 2026-10-22 against:
 
 - Repository: <https://github.com/deepseek-ai/deepseek-harness>
-- Commit: `47f943859bef60e4160492346772ded9b24f765a`
-- Source version: `0.1.0-rc.5`
-- Status: developer preview; breaking changes are expected
+- Commit: `687f282e8625c6b8d11ff58211a90524be2e4317`
+- Release tag: `dsh-v0.2.1-rc.2` (published 2026-10-17)
+- Source version: `0.2.1-rc.2`
+- Status: latest published prerelease at verification time; developer preview with expected breaking changes
 
 Check the current head before authoring:
 
@@ -138,6 +139,8 @@ The patch is a YAML array, for example:
 
 Without `dsh.bundle`, `dsh plugin add` installs a dependency but activates no profile layer.
 
+Declare a tested compatibility range with `engines.dsh`. DSH v0.2.1-rc.2 checks it during installation and profile startup; when it is absent, DSH falls back to the package's `@deepseek-ai/dsh-*` peer dependency ranges. Prefer `engines.dsh` when compatibility is defined by host APIs, and include only versions verified by the plugin.
+
 The CLI entrypoint is a pnpm forwarding interface:
 
 ```sh
@@ -167,6 +170,8 @@ pnpm 10+ blocks dependency build scripts until the installer authorizes the exac
 ```sh
 dsh plugin --profile web add github:OWNER/REPO#COMMIT_SHA
 ```
+
+When importing a DSH package whose instance must be shared with the host (for example `@deepseek-ai/dsh-tools` or `@deepseek-ai/schemastery`), declare it in both `peerDependencies` and `devDependencies` using published semver ranges. DSH v0.2.1-rc.2 resolves declared peers against the running host; keep independent third-party dependencies in `dependencies`.
 
 Publishing prebuilt output to npm or installing a packed tarball avoids Git-time compilation.
 
